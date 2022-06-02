@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/alchemistcoin/nft-lbp/issues"
   },
+  "publishConfig": {
+    "@alchemistcoin:registry": "https://npm.pkg.github.com"
+  },
   "homepage": "https://github.com/alchemistcoin/nft-lbp#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
