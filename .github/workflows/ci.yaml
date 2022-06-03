@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: 16
+        node-version: [16.15.0]
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: 16
+        node-version: [16.15.0]
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
