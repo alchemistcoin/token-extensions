@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "lint": "solhint 'contracts/**/*.sol' && prettier --check '**/*.{ts, sol}'",
+    "lint:fix": "prettier --write '**/*.{ts, sol}' && prettier --write 'contracts/**/*.sol'"
   },
   "repository": {
     "type": "git",
