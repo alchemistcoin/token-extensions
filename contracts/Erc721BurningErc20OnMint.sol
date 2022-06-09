@@ -14,14 +14,14 @@ abstract contract Erc721BurningErc20OnMint is
     IErc721BurningErc20OnMint,
     Ownable
 {
-    address private _erc20TokenAddress;
+    address public erc20TokenAddress;
 
     function setErc20TokenAddress(address erc20TokenAddress_)
         public
         override
         onlyOwner
     {
-        _erc20TokenAddress = erc20TokenAddress_;
+        erc20TokenAddress = erc20TokenAddress_;
     }
 
     /**
@@ -59,12 +59,12 @@ abstract contract Erc721BurningErc20OnMint is
         //check if it's a mint
         if (from == address(0) && to != address(0)) {
             require(
-                _erc20TokenAddress != address(0),
+                erc20TokenAddress != address(0),
                 "_erc20TokenAddress must be defined"
             );
-            uint256 balanceOfAddress = IERC20(_erc20TokenAddress).balanceOf(to);
+            uint256 balanceOfAddress = IERC20(erc20TokenAddress).balanceOf(to);
             require(balanceOfAddress >= 1, "user does not hold a token");
-            ERC20Burnable(_erc20TokenAddress).burnFrom(to, 1);
+            ERC20Burnable(erc20TokenAddress).burnFrom(to, 1);
         }
     }
 }
