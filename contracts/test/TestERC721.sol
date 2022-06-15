@@ -13,6 +13,7 @@ contract TestERC721 is Erc721BurningErc20OnMint, ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    // solhint-disable-next-line no-empty-blocks
     constructor() ERC721("TestToken", "TTKN") {}
 
     function mint(address to) public override nonReentrant {

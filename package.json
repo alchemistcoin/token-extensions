@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "lint": "solhint 'contracts/**/*.sol' && prettier --check '**/*.{ts, sol}'",
-    "lint:fix": "prettier --write '**/*.{ts, sol}' && prettier --write 'contracts/**/*.sol'"
+    "lint": "solhint 'contracts/**/*.sol' && prettier --check '**/*.ts' && prettier --check 'contracts/**/*.sol'",
+    "lint:fix": "solhint --fix 'contracts/**/*.sol' && prettier --write '**/*.ts' && prettier --write 'contracts/**/*.sol'"
   },
   "repository": {
     "type": "git",
