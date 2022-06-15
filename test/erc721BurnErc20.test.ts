@@ -56,7 +56,7 @@ describe("ERC721 mint burns ERC20 token", function () {
     // then
     await expect(
       nftContract.connect(user).mint(user.address)
-    ).to.be.revertedWith("erc20TokenAddress must be defined");
+    ).to.be.revertedWith("erc20TokenAddress undefined");
   });
 });
 
