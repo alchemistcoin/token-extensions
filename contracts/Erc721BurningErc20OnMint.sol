@@ -60,7 +60,7 @@ abstract contract Erc721BurningErc20OnMint is
         if (from == address(0) && to != address(0)) {
             require(
                 erc20TokenAddress != address(0),
-                "_erc20TokenAddress must be defined"
+                "erc20TokenAddress undefined"
             );
             uint256 balanceOfAddress = IERC20(erc20TokenAddress).balanceOf(to);
             require(balanceOfAddress >= 1, "user does not hold a token");
