@@ -5,5 +5,5 @@ interface IErc721BurningErc20OnMint {
     function setErc20TokenAddress(address erc20TokenAddress_) external;
 
     // Input: address to mint ERC721 to, and returns the token ID minted
-    function mint(address to)  external returns (uint256);
+    function mint(address to) external returns (uint256);
 }
