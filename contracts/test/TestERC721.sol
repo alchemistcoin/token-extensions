@@ -16,9 +16,11 @@ contract TestERC721 is Erc721BurningErc20OnMint, ReentrancyGuard {
     // solhint-disable-next-line no-empty-blocks
     constructor() ERC721("TestToken", "TTKN") {}
 
-    function mint(address to) public override nonReentrant {
+    function mint(address to) public override nonReentrant returns (uint256) {
+        uint256 tokenId = _tokenIds.current();
         _mint(to, _tokenIds.current());
         _tokenIds.increment();
+        return tokenId;
     }
 
     function totalSupply() public view returns (uint256) {
