@@ -17,9 +17,13 @@ async function main() {
   const TestERC721Factory = await ethers.getContractFactory("TestERC721");
   const testERC721 = await TestERC721Factory.deploy();
 
-  await testERC721.deployed();
+  const contract = await testERC721.deployed().then((f: any) => f.deployed());
 
   console.log("TestERC721 deployed to:", testERC721.address);
+  process.stdout.write(
+    "npx hardhat verify --network " + process.env.HARDHAT_NETWORK + " "
+  );
+  process.stdout.write(contract.address + "\n");
 }
 
 // We recommend this pattern to be able to use async/await everywhere
