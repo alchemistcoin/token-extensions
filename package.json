@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepack": "npx hardhat compile",
     "test": "npx hardhat test",
     "lint": "solhint 'contracts/**/*.sol' && prettier --check '**/*.ts' && prettier --check 'contracts/**/*.sol'",
     "lint:fix": "solhint --fix 'contracts/**/*.sol' && prettier --write '**/*.ts' && prettier --write 'contracts/**/*.sol'"
