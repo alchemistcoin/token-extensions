@@ -1,5 +1,5 @@
 {
-  "name": "@alchemistcoin/nft-extensions",
+  "name": "@alchemistcoin/token-extensions",
   "version": "1.3.0",
   "description": "",
   "main": "index.js",
@@ -11,18 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alchemistcoin/nft-extensions.git"
+    "url": "git+https://github.com/alchemistcoin/token-extensions.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alchemistcoin/nft-extensions/issues"
+    "url": "https://github.com/alchemistcoin/token-extensions/issues"
   },
   "publishConfig": {
     "@alchemistcoin:registry": "https://npm.pkg.github.com"
   },
-  "homepage": "https://github.com/alchemistcoin/nft-extensions#readme",
+  "homepage": "https://github.com/alchemistcoin/token-extensions#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.0.4",
