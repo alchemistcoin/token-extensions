@@ -58,14 +58,41 @@ function getNetworkURL(networkId: number): string {
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-
+const accounts = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 const config: HardhatUserConfig = {
   solidity: "0.8.14",
   networks: {
     kovan: {
       url: getNetworkURL(CHAIN_IDS.ETHEREUM_KOVAN),
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      accounts,
+    },
+    // goerli: {
+    //   url: getNetworkURL(CHAIN_IDS.ETHEREUM_GOERLI),
+    //   accounts,
+    // },
+    rinkeby: {
+      url: getNetworkURL(CHAIN_IDS.ETHEREUM_RINKEBY),
+      accounts,
+    },
+    mainnet: {
+      url: getNetworkURL(CHAIN_IDS.ETHEREUM_MAINNET),
+      accounts,
+    },
+    polygon: {
+      url: getNetworkURL(CHAIN_IDS.POLYGON_MAINNET),
+      accounts,
+    },
+    arbitrumOne: {
+      url: getNetworkURL(CHAIN_IDS.ARBITRUM_MAINNET),
+      accounts,
+    },
+    avalanche: {
+      url: getNetworkURL(CHAIN_IDS.AVALANCHE_MAINNET),
+      accounts,
+    },
+    fuji: {
+      url: getNetworkURL(CHAIN_IDS.AVALANCHE_FUJI),
+      accounts,
     },
   },
   gasReporter: {
