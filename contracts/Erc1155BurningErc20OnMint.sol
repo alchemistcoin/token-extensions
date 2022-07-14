@@ -1,17 +1,15 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/introspection/ERC165Storage.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./IErc721BurningErc20OnMint.sol";
+import "./IErc1155BurningErc20OnMint.sol";
 
-abstract contract Erc721BurningErc20OnMint is
-    ERC721,
-    IErc721BurningErc20OnMint,
+abstract contract Erc1155BurningErc20OnMint is
+    ERC1155,
+    IErc1155BurningErc20OnMint,
     Ownable
 {
     address public erc20TokenAddress;
@@ -34,17 +32,17 @@ abstract contract Erc721BurningErc20OnMint is
         public
         view
         virtual
-        override(ERC721)
+        override(ERC1155)
         returns (bool)
     {
         return
-            interfaceId == type(IErc721BurningErc20OnMint).interfaceId ||
+            interfaceId == type(IErc1155BurningErc20OnMint).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
     /**
-     *   @dev this method hooks into ERC721's internal transfers mechanism (mint, burn, transfer) - see
-     https://docs.openzeppelin.com/contracts/4.x/api/token/erc721#ERC721-_beforeTokenTransfer-address-address-uint256-
+     *   @dev this method hooks into ERC1155's internal transfers mechanism (mint, burn, transfer) - see
+     https://docs.openzeppelin.com/contracts/4.x/api/token/erc1155#ERC1155-_beforeTokenTransfer-address-address-address-uint256---uint256---bytes-
      * - When from and to are both non-zero, from's amount will be transferred to to.
      * - When from is zero, amount will be minted for to.
      * - When to is zero, from's amount will be burned.
@@ -54,20 +52,35 @@ abstract contract Erc721BurningErc20OnMint is
      *   the above logic only applies to minting, other transfer operations are ignored
      */
     function _beforeTokenTransfer(
+        address operator,
         address from,
         address to,
-        uint256 amount
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
     ) internal virtual override {
-        super._beforeTokenTransfer(from, to, amount);
-        //check if it's a mint
-        if (from == address(0) && to != address(0)) {
+        super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+        // Make sure this only runs for _mint()
+        if (
+            from == address(0) && // Should be False for _transfer and False for _burn
+            to != address(0)
+        ) // False for _burn so adds some _burn redundancy
+        {
             require(
                 erc20TokenAddress != address(0),
                 "erc20TokenAddress undefined"
             );
-            uint256 balanceOfAddress = IERC20(erc20TokenAddress).balanceOf(to);
-            require(balanceOfAddress >= 1, "user does not hold a token");
-            ERC20Burnable(erc20TokenAddress).burnFrom(to, 1);
+            uint256 arraysLength = ids.length;
+            uint256 requiredMintPasses;
+            uint256 toMintPassBalance = IERC20(erc20TokenAddress).balanceOf(to);
+            for (uint256 i = 0; i < arraysLength; i++) {
+                requiredMintPasses += amounts[i];
+            }
+            require(
+                toMintPassBalance >= requiredMintPasses,
+                "Insufficient ERC20 balance"
+            );
+            ERC20Burnable(erc20TokenAddress).burnFrom(to, requiredMintPasses);
         }
     }
 }
