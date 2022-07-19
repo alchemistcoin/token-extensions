@@ -1,5 +1,10 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import {
+  ERC20__factory,
+  IErc721BurningErc20OnMint__factory,
+} from "../typechain";
+import { getInterfaceID } from "./utils";
 
 describe("ERC721 mint burns ERC20 token", function () {
   it("Calling mint on ERC721 should burn ERC20 token", async function () {
@@ -26,6 +31,36 @@ describe("ERC721 mint burns ERC20 token", function () {
     await expect(
       nftContract.connect(user).mint(user.address)
     ).to.be.revertedWith("user does not hold a token");
+  });
+
+  it("Calling supportsInterface returns true for IErc721BurningErc20OnMint", async function () {
+    // given
+    const { user, erc20Contract, nftContract } = await deployContracts();
+    await erc20Contract.connect(user).approve(nftContract.address, 1);
+
+    // when
+    const result = await nftContract.supportsInterface(
+      getInterfaceID(
+        IErc721BurningErc20OnMint__factory.createInterface()
+      ).toHexString()
+    );
+
+    // then
+    await expect(result).to.be.true;
+  });
+
+  it("Calling supportsInterface returns false if interface is not supported", async function () {
+    // given
+    const { user, erc20Contract, nftContract } = await deployContracts();
+    await erc20Contract.connect(user).approve(nftContract.address, 1);
+
+    // when
+    const result = await nftContract.supportsInterface(
+      getInterfaceID(ERC20__factory.createInterface()).toHexString()
+    );
+
+    // then
+    await expect(result).to.be.false;
   });
 
   it("Calling mint on ERC721 should fail if erc20TokenAddress is not set", async function () {
