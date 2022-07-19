@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepack": "hardhat typechain",
-    "test": "npx hardhat test",
+    "test": "hardhat compile && hardhat test",
     "lint": "solhint 'contracts/**/*.sol' && prettier --check '**/*.ts' && prettier --check 'contracts/**/*.sol'",
     "lint:fix": "solhint --fix 'contracts/**/*.sol' && prettier --write '**/*.ts' && prettier --write 'contracts/**/*.sol'"
   },
