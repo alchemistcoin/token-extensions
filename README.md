@@ -1,10 +1,10 @@
 # token-extensions
 
-This library provides you with Solidity contract utilities to help you create a Copper a fair NFT drop powered by Balancer's Liquidity Bootstrapping Pools
+This library provides you with Solidity contract utilities to help you create a Copper NFT drop powered by Balancer's Liquidity Bootstrapping Pools.
 
 ## Installation
 
-To get started, install the library in your NFT contract project using
+To get started, install the library in your NFT smart contract's project using
 
 ```shell
 npm install --save @alchemistcoin/token-extensions
@@ -12,14 +12,14 @@ npm install --save @alchemistcoin/token-extensions
 
 ## Extending you NFT contract
 
-First, your NFT project must have an [OpenZeppelin ERC721](https://docs.openzeppelin.com/contracts/4.x/)/[OpenZeppelin ERC1155](https://docs.openzeppelin.com/contracts/4.x/) compliant contract.
+First, your NFT project must have an [OpenZeppelin ERC721](https://docs.openzeppelin.com/contracts/4.x/) or an [OpenZeppelin ERC1155](https://docs.openzeppelin.com/contracts/4.x/) compliant contract.
 
-Once the `token-extensions` is installed in your NFT project, you need to make the following changes to your contract:
+Once the `token-extensions` library is installed in your NFT project, you need to make the following changes to your contract:
 
-1) Make your ERC721/ERC1155 contract extend from `@alchemistcoin/token-extensions/contracts/Erc721BurningErc20OnMint.sol` or `@alchemistcoin/token-extensions/contracts/Erc1155BurningErc20OnMint.sol` respectively.
+1) Make your ERC721/ERC1155 contract extend the interface from `@alchemistcoin/token-extensions/contracts/Erc721BurningErc20OnMint.sol` or `@alchemistcoin/token-extensions/contracts/Erc1155BurningErc20OnMint.sol` respectively.
 2) Implement a `mint` function (as per the [IErc721BurningErc20OnMint](contracts/IErc721BurningErc20OnMint.sol) or [IErc1155BurningErc20OnMint](contracts/IErc1155BurningErc20OnMint.sol)) in your NFT contract that returns the token ID which is minted when that function is called
 
-See [TestERC721.sol](contracts/test/TestERC721.sol)/[TestERC1155.sol](contracts/test/TestERC1155.sol) for an example.
+See [TestERC721.sol](contracts/test/TestERC721.sol)/[TestERC1155.sol](contracts/test/TestERC1155.sol) for a reference implementation.
 
 ## Contract unit tests
 
