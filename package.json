@@ -19,9 +19,6 @@
   "bugs": {
     "url": "https://github.com/alchemistcoin/token-extensions/issues"
   },
-  "publishConfig": {
-    "@alchemistcoin:registry": "https://npm.pkg.github.com"
-  },
   "homepage": "https://github.com/alchemistcoin/token-extensions#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
