@@ -16,9 +16,6 @@ abstract contract Erc721BurningErc20OnMint is
 {
     address public erc20TokenAddress;
 
-    /**
-     * @dev setter for the ERC20 (mintpass) token address which will be burned from upon minting
-     */
     function setErc20TokenAddress(address erc20TokenAddress_)
         public
         override

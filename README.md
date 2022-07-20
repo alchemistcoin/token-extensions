@@ -12,14 +12,14 @@ npm install --save @alchemistcoin/token-extensions
 
 ## Extending you NFT contract
 
-First, your NFT project must have an [OpenZeppelin ERC721](https://docs.openzeppelin.com/contracts/4.x/) or an [OpenZeppelin ERC1155](https://docs.openzeppelin.com/contracts/4.x/) compliant contract.
+First, your NFT project must have an [OpenZeppelin ERC721](https://docs.openzeppelin.com/contracts/4.x/) compliant contract (ERC1155 support coming soon).
 
 Once the `token-extensions` library is installed in your NFT project, you need to make the following changes to your contract:
 
-1) Make your ERC721/ERC1155 contract extend the interface from `@alchemistcoin/token-extensions/contracts/Erc721BurningErc20OnMint.sol` or `@alchemistcoin/token-extensions/contracts/Erc1155BurningErc20OnMint.sol` respectively.
-2) Implement a `mint` function (as per the [IErc721BurningErc20OnMint](contracts/IErc721BurningErc20OnMint.sol) or [IErc1155BurningErc20OnMint](contracts/IErc1155BurningErc20OnMint.sol)) in your NFT contract that returns the token ID which is minted when that function is called
+1) Make your ERC721 contract extend the interface from `@alchemistcoin/token-extensions/contracts/Erc721BurningErc20OnMint.sol`.
+2) Implement a `mint` function (as per the [IErc721BurningErc20OnMint](contracts/IErc721BurningErc20OnMint.sol) in your NFT contract that returns the token ID which is minted when that function is called
 
-See [TestERC721.sol](contracts/test/TestERC721.sol)/[TestERC1155.sol](contracts/test/TestERC1155.sol) for a reference implementation.
+See [TestERC721.sol](contracts/test/TestERC721.sol) for a reference implementation.
 
 ## Contract unit tests
 
@@ -37,12 +37,6 @@ In this project, copy the .env.example file to a file named .env, and then edit 
 
 ```shell
 hardhat run --network kovan scripts/TestERC721/deploy.ts 
-```
-
-Or
-
-```shell
-hardhat run --network kovan scripts/TestERC1155/deploy.ts 
 ```
 
 ## Etherscan verification
