@@ -11,7 +11,9 @@ import "../Erc1155BurningErc20OnMint.sol";
 
 contract TestERC1155 is Erc1155BurningErc20OnMint, ReentrancyGuard {
     // solhint-disable-next-line no-empty-blocks
-    constructor() ERC1155("http://localhost") {}
+    constructor()
+        Erc1155BurningErc20OnMint("foobar", "fb", "http://localhost")
+    {}
 
     function mint(
         address to,

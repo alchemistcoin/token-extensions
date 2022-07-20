@@ -63,6 +63,16 @@ describe("ERC1155 mint burns ERC20 token", function () {
     await expect(result).to.be.false;
   });
 
+  it("Calling name and token returns expected constructor values", async function () {
+    // given
+    const { user, erc20Contract, nftContract } = await deployContracts();
+    await erc20Contract.connect(user).approve(nftContract.address, 1);
+
+    // then
+    await expect(await nftContract.name()).to.equal("foobar");
+    await expect(await nftContract.symbol()).to.equal("fb");
+  });
+
   it("Calling mint on ERC1155 should fail if erc20TokenAddress is not set", async function () {
     // given
     const [erc20Owner, erc1155Owner, user] = await ethers.getSigners();

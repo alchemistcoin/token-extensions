@@ -12,6 +12,20 @@ abstract contract Erc1155BurningErc20OnMint is
     IErc1155BurningErc20OnMint,
     Ownable
 {
+    // Token name
+    string private _name;
+    // Token symbol
+    string private _symbol;
+
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        string memory uri
+    ) ERC1155(uri) {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
     address public erc20TokenAddress;
 
     /**
@@ -25,7 +39,15 @@ abstract contract Erc1155BurningErc20OnMint is
         erc20TokenAddress = erc20TokenAddress_;
     }
 
-    /**
+    function name() public view virtual returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view virtual returns (string memory) {
+        return _symbol;
+    }
+
+    /*
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId)
